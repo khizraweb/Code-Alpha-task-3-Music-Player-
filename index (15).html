@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Song Player</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <div class="brand-row">
+    <div class="brand">
+      <img src="assets/images/logo.png" alt="Vinyl logo" class="logo-img">
+      <div class="brand-mark">Vinyl<span>.</span></div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" title="Toggle dark mode" aria-label="Toggle dark mode">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.4 5.4 0 0 1-7.54-7.54c-.44-.06-.9-.1-1.36-.1z"/></svg>
+    </button>
+  </div>
+  <div class="brand-tag">A LATE&#8209;NIGHT RECORD PLAYER</div>
+
+  <!-- ============ PLAYER CARD ============ -->
+  <section class="player">
+
+    <!-- Turntable (signature visual) -->
+    <div class="turntable">
+      <div class="platter" id="platter">
+        <div class="label" id="vinylLabel">VN</div>
+      </div>
+      <div class="tonearm" id="tonearm">
+        <div class="pivot"></div>
+        <div class="arm">
+          <div class="head"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Now playing + controls -->
+    <div class="now-playing">
+
+      <div class="track-meta">
+        <div class="eyebrow">
+          <span class="dot" id="liveDot"></span> NOW PLAYING
+        </div>
+        <h1 class="track-title" id="trackTitle">Select a track</h1>
+        <div class="track-artist" id="trackArtist">—</div>
+      </div>
+
+      <div class="progress-row">
+        <span class="time" id="currentTime">0:00</span>
+        <input type="range" class="seek" id="seek" min="0" max="100" value="0" step="0.1" aria-label="Seek">
+        <span class="time right" id="duration">0:00</span>
+      </div>
+
+      <div class="controls-row">
+        <div class="transport">
+          <button class="btn-icon" id="prevBtn" title="Previous" aria-label="Previous track">
+            <img src="assets/icons/backward-icon.png" alt="Previous" class="icon-img icon-img-sm">
+          </button>
+
+          <button class="btn-play" id="playBtn" title="Play/Pause" aria-label="Play or pause">
+            <img src="assets/icons/play_button.svg" alt="Play" class="icon-img icon-img-lg play-state-icon">
+            <img src="assets/icons/Pause_circle.png" alt="Pause" class="icon-img icon-img-lg pause-state-icon">
+          </button>
+
+          <button class="btn-icon" id="nextBtn" title="Next" aria-label="Next track">
+            <img src="assets/icons/forward-icon.png" alt="Next" class="icon-img icon-img-sm">
+          </button>
+        </div>
+
+        <div class="mode-row">
+          <button class="chip" id="shuffleBtn" title="Shuffle playlist">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 3l4 4-4 4V8h-3.6l-2-2H17V3zM3 6h5.6l7.8 8.8L17 18v-3l4 4-4 4v-3h-6.4L3.6 9.2 3 8.6V6zm2 9.6L3 18l2 2 2-2-2-2z"/></svg>
+            Shuffle
+          </button>
+          <button class="chip" id="repeatBtn" title="Repeat playlist">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2z"/></svg>
+            Repeat
+          </button>
+          <button class="chip" id="autoplayBtn" title="Autoplay next track">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Autoplay
+          </button>
+          <button class="chip" id="speedBtn" title="Playback speed">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 10.59V7h-2v6.41l4.24 4.25 1.42-1.42z"/></svg>
+            <span id="speedLabel">1x</span>
+          </button>
+          <button class="chip" id="timerBtn" title="Sleep timer">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 2v2h6V2H9zm3 4a8 8 0 1 0 8 8 8 8 0 0 0-8-8zm.5 4v4.25l3.5 2.1-.75 1.23L11 15V10h1.5z"/></svg>
+            <span id="timerLabel">Sleep</span>
+          </button>
+        </div>
+
+        <div class="volume">
+          <button class="btn-icon" id="muteBtn" title="Mute" aria-label="Mute">
+            <svg id="volIcon" viewBox="0 0 24 24" fill="currentColor"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+          </button>
+          <input type="range" class="vol-slider" id="volume" min="0" max="100" value="80" aria-label="Volume">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PLAYLIST ============ -->
+  <section class="playlist-card">
+    <div class="playlist-head">
+      <h2>Playlist</h2>
+      <span class="count" id="trackCount">0 tracks</span>
+    </div>
+
+    <div class="playlist-tools">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27a6.47 6.47 0 0 0 1.48-5.34C15.47 5.29 12.9 3 9.9 3A6.5 6.5 0 1 0 14.31 14.7l.27.28v.79l5 5L21 19.5zm-6 0a4.5 4.5 0 1 1 4.5-4.5A4.5 4.5 0 0 1 9.5 14z"/></svg>
+        <input type="search" id="searchInput" placeholder="Search song or artist…" aria-label="Search playlist">
+      </div>
+      <button class="chip" id="likedFilterBtn" title="Show liked tracks only">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-6.7-4.35-9.3-8.1C1.1 10.6 1.6 7.6 4 6.1c2.1-1.3 4.6-.7 6 1.1l2 2.4 2-2.4c1.4-1.8 3.9-2.4 6-1.1 2.4 1.5 2.9 4.5 1.3 6.8C18.7 16.65 12 21 12 21z"/></svg>
+        Liked
+      </button>
+      <label class="chip upload-chip" for="uploadInput" title="Add your own tracks">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3z"/></svg>
+        Add song
+      </label>
+      <input type="file" id="uploadInput" accept="audio/*" multiple hidden>
+    </div>
+
+    <ul class="playlist" id="playlist"></ul>
+    <p class="empty-state" id="emptyState" hidden>No tracks match your search.</p>
+  </section>
+
+</div>
+
+<div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+<audio id="audio" preload="metadata"></audio>
+
+<script src="js/script.js"></script>
+</body>
+</html>
